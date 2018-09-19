@@ -227,14 +227,20 @@ end;
 
 function TftRawInputInterceptor.GetVendorID(const DevicePath: string): Word;
 begin
-  Result := StrToInt('$'+(Copy(DevicePath,VIDPrefix+1,VIDorPIDLength)));
+  if DevicePath.Contains('VID_') then
+    Result := StrToInt('$'+(Copy(DevicePath,VIDPrefix+1,VIDorPIDLength)))
+  else
+    Result := 0;
 end;
 
 function TftRawInputInterceptor.GetProductID(const DevicePath: string): Word;
 const
   PIDPrefix = Length('&PID_');  //prefix b4 4 digit hex Product ID after Vendor ID
 begin
-  Result := StrToInt('$'+Copy(DevicePath,VIDPrefix+VIDorPIDLength+PIDPrefix+1,VIDorPIDLength));
+  if DevicePath.Contains('&PID_') then
+    Result := StrToInt('$'+Copy(DevicePath,VIDPrefix+VIDorPIDLength+PIDPrefix+1,VIDorPIDLength))
+  else
+    Result := 0;
 end;
 
 function TftRawInputInterceptor.GetCapturedKeyBoards: TStrings;
