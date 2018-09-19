@@ -4,8 +4,7 @@ uses
   Forms,
   fmMain in 'fmMain.pas' {Form1},
   ftRawInputInterceptor in 'ftRawInputInterceptor.pas',
-  unRawInput in 'unRawInput.pas',
-  SetupAPI in 'SetupAPI.pas';
+  unRawInput in 'unRawInput.pas';
 
 {$R *.res}
 

@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ftRawInputInterceptor, SetupAPI, Vcl.ComCtrls, Vcl.Menus;
+  Dialogs, StdCtrls, ftRawInputInterceptor, Vcl.ComCtrls, Vcl.Menus;
 
 type
   TForm1 = class(TForm)
