@@ -180,6 +180,7 @@ const
   VIDPrefix = Length('\\?\HID#VID_');   //prefix b4 4 digit hex Vendor ID
   PIDPrefix = Length('&PID_');  //prefix b4 4 digit hex Product ID after Vendor ID
   VIDorPIDLength = 4;
+  ErrorValue = $FFFFFFFF;
 
 var
   I :integer;
@@ -187,17 +188,22 @@ var
   dwSize :cardinal;
   DevicePath: array[0..1023] of Char;
   aRawInputKeyBoard :TRawInputKeyBoard;
+  BytesCopied :UINT;
+  NumDevices :UINT;
 begin
   dwSize := SizeOf(RAWINPUTDEVICELIST);
   DeviceCount := 0;
   //call to get the device count
-  unRawInput.GetRawInputDeviceList(nil,DeviceCount,dwSize);
+  if (unRawInput.GetRawInputDeviceList(nil,DeviceCount,dwSize) <> 0) then
+    raise ENotSupportedException.Create(SysErrorMessage(GetLastError()));
+
   if DeviceCount > 0 then
   begin
     SetLength(FDevices, DeviceCount);
 
     FRawInputKeyBoards.Clear;
-    if unRawInput.GetRawInputDeviceList(@FDevices[0], DeviceCount, dwSize) <> $FFFFFFFF then
+    NumDevices := unRawInput.GetRawInputDeviceList(@FDevices[0], DeviceCount, dwSize);
+    if (NumDevices <> ErrorValue) then
     begin
       for I := 0 to DeviceCount - 1 do
       begin
@@ -205,7 +211,10 @@ begin
         begin
           Inc(FRawInputKeyBoardCount);
           dwSize := SizeOf(DevicePath);
-          GetRawInputDeviceInfo(FDevices[I].hDevice, RIDI_DEVICENAME, @DevicePath, dwSize);
+          ZeroMemory(@DevicePath,dwSize);
+          BytesCopied := GetRawInputDeviceInfo(FDevices[I].hDevice, RIDI_DEVICENAME, @DevicePath, dwSize);
+          if BytesCopied = ErrorValue then
+            raise ENotSupportedException.Create('GetRawInputDeviceInfo returned an error - RAW Input API appears not to be suppported');
           aRawInputKeyBoard := TRawInputKeyBoard.Create;
           aRawInputKeyBoard.Name := GetDeviceName(DevicePath);
           aRawInputKeyBoard.DeviceHandle := FDevices[I].hDevice;
@@ -221,7 +230,9 @@ begin
       FHidCtl.DeviceChange;  //trigger load of HID information
       FHidCtl.OnEnumerate := FindHIDByVIDandPID;
       FHidCtl.Enumerate;
-    end;
+    end
+    else
+      raise ENotSupportedException.Create('GetRawInputDeviceList returned an error - RAW Input API appears not to be suppported');
   end;
 end;
 

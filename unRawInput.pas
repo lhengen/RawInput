@@ -396,7 +396,7 @@ var pcbSize: UINT): UINT; stdcall;
 {$EXTERNALSYM GetRawInputDeviceInfoW}
 
 {$IFDEF UNICODE}
-function GetRawInputDeviceInfo(hDevice: THANDLE; uiCommand: UINT; pData: POINTER;
+function  GetRawInputDeviceInfo(hDevice: THANDLE; uiCommand: UINT; pData: POINTER;
 var pcbSize: UINT): UINT; stdcall;
 {$EXTERNALSYM GetRawInputDeviceInfo}
 {$ELSE}
