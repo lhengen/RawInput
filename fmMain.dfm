@@ -2,7 +2,7 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Test Raw Input'
-  ClientHeight = 399
+  ClientHeight = 460
   ClientWidth = 748
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -16,7 +16,7 @@ object Form1: TForm1
   OnShow = FormShow
   DesignSize = (
     748
-    399)
+    460)
   PixelsPerInch = 96
   TextHeight = 13
   object laKeyboardCount: TLabel
@@ -41,10 +41,12 @@ object Form1: TForm1
   end
   object lblCaptured: TLabel
     Left = 33
-    Top = 260
+    Top = 313
     Width = 99
     Height = 13
+    Anchors = [akLeft, akBottom]
     Caption = 'Keyboards Captured'
+    ExplicitTop = 260
   end
   object Memo1: TMemo
     Left = 27
@@ -71,8 +73,8 @@ object Form1: TForm1
     Left = 29
     Top = 152
     Width = 613
-    Height = 93
-    Anchors = [akLeft, akTop, akRight]
+    Height = 142
+    Anchors = [akLeft, akTop, akRight, akBottom]
     Columns = <
       item
         Caption = 'Manufacturer'
@@ -96,6 +98,7 @@ object Form1: TForm1
     PopupMenu = pmCapture
     TabOrder = 1
     ViewStyle = vsReport
+    ExplicitHeight = 93
   end
   object btnRefreshKeyBoards: TButton
     Left = 648
@@ -109,10 +112,10 @@ object Form1: TForm1
   end
   object lvCaptured: TListView
     Left = 27
-    Top = 280
+    Top = 329
     Width = 613
-    Height = 93
-    Anchors = [akLeft, akTop, akRight]
+    Height = 105
+    Anchors = [akLeft, akRight, akBottom]
     Columns = <
       item
         Caption = 'Manufacturer'
@@ -136,6 +139,7 @@ object Form1: TForm1
     PopupMenu = pmUnCapture
     TabOrder = 3
     ViewStyle = vsReport
+    ExplicitTop = 280
   end
   object btnClear: TButton
     Left = 144
