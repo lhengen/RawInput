@@ -1,7 +1,7 @@
 # RawInput
 Background USB Scanner Support using the RAWInput API
 
-Thiis application was written using Delphi Tokyo 10.2.  If you get errors opening the DPROJ file, then delete it and Delphi will recreate it from the DPR.  You will then have to manually add the JVCL paths.
+This application was written using Delphi Tokyo 10.2.  If you get errors opening the DPROJ file, then delete it and Delphi will recreate it from the DPR.  You will then have to manually add the JVCL paths.
 
 The TftRawInputInterceptor class uses the JEDI Jvcl HidController to detect the USB scanner
 and fetch it's device information.  The RAW Input API is used to read barcodes, which are then sent to the target window in a Windows message.
