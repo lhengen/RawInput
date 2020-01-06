@@ -530,6 +530,7 @@ begin
               FBarCodeIndex := 0;
               FSkipLegacy := False;
               SendMessage(Application.ActiveFormHandle,CM_BARCODE_SCANNED,Integer(@FBarCode),0);
+              ZeroMemory(@FBarCode, sizeOf(FBarCode));   //re-initialize barcode buffer
             end
             else
             begin
